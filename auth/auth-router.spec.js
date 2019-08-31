@@ -29,7 +29,8 @@ describe('POST /api/auth/login', () => {
     const loginEndpoint = '/api/auth/login'
 
     beforeEach(async () => {
-        await db('users').truncate()
+        const loggedInUser = { username: 'brey', password: 'password' }
+        await request(server).post(loginEndpoint).send(loggedInUser)
     })
 
     describe('login failure', () => {
