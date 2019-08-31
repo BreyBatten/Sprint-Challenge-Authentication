@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const authenticate = require('../auth/authenticate-middleware.js');
 const authRouter = require('../auth/auth-router.js');
 const jokesRouter = require('../jokes/jokes-router.js');
+const usersRouter = require('../users/usersRouter');
 
 const sessionOptions = {
     name: 'sprintCookie',
@@ -37,6 +38,7 @@ server.use(express.json());
 server.use(session(sessionOptions));
 
 server.use('/api/auth', authRouter);
+server.use('/api/auth/users', usersRouter);
 server.use('/api/jokes', authenticate, jokesRouter);
 
 server.get('/', (req, res) => {

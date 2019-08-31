@@ -23,4 +23,27 @@ describe('POST /api/auth/register', () => {
             expect(res.status).toBe(201)
         })
     })
+});
+
+describe('POST /api/auth/login', () => {
+    const loginEndpoint = '/api/auth/login'
+
+    beforeEach(async () => {
+        await db('users').truncate()
+    })
+
+    describe('login failure', () => {
+        it('should return a status code 500', async () => {
+            const res = await request(server).post(loginEndpoint)
+            expect(res.status).toBe(500)
+        })
+    })
+
+    describe('login success', () => {
+        it('should return a status of 200', async () => {
+            const loggedInUser = { username: 'brey', password: 'password' }
+            const res = await request(server).post(loginEndpoint).send(loggedInUser)
+            expect(res.status).toBe(200)
+        })
+    })
 })
